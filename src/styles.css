@@ -1,0 +1,18 @@
+@font-face {
+  font-family: "Inter";
+  src: url("./fonts/Inter-VariableFont_opsz,wght.ttf");
+}
+
+:root {
+  font-family: "Inter";
+
+  /* Colors */
+  --primary: lightblue;
+  --secondary: #9022f1; 
+  --light: #ffffff;
+  --medium: #fefefe;
+  --dark: #f2f2f2;
+  --very-dark: #7a7a7a;
+  
+  --border-radius: 0.25rem;
+}
