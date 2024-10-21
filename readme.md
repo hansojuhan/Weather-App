@@ -12,11 +12,11 @@
 
 ## Steps to build it out
 
-1) [ ] Write a basic function with location input and weather data output that hits the API. Use async/await
+1) [x] Write a basic function with location input and weather data output that hits the API. Use async/await
 
-2) [ ] Process the output and show on screen main things like temp, humidity, clouds, wind speed, forecast.
+2) [x] Process the output and show on screen main things like temp, humidity, clouds, wind speed, forecast.
 
-3) [ ] Add a form, searchbox and submit button for the frontend.
+3) [x] Add a form, searchbox and submit button for the frontend.
 
 4) [ ] Style the page (both desktop and mobile).
 
