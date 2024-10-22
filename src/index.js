@@ -122,19 +122,26 @@ function renderWeatherData(data) {
   const moreInfoContainer = document.createElement('div');
   moreInfoContainer.classList.add('more-info');
 
-  const tempMin = document.createElement('p');
-  tempMin.innerText = `Min temp:\t\t${data.currentWeather.temperatureMin}`;
+  const moreInfoTable = document.createElement('table');
+  const moreInfoTableBody = document.createElement('tbody');
 
-  const tempMax = document.createElement('p');
-  tempMax.innerText = `Max temp:\t${data.currentWeather.temperatureMax}`;
 
-  const wind = document.createElement('p');
-  wind.innerText = `Wind speed:\t${data.currentWeather.windSpeed}`;
+  const tempMin = document.createElement('tr');
+  tempMin.innerHTML = `<td>Min temp:</td><td>${data.currentWeather.temperatureMin}</td>`;
 
-  const humidity = document.createElement('p');
-  humidity.innerText = `Humidity:\t${data.currentWeather.humidity}`;
+  const tempMax = document.createElement('tr');
+  tempMax.innerHTML = `<td>Max temp:</td><td>${data.currentWeather.temperatureMax}</td>`;
 
-  moreInfoContainer.append(tempMin, tempMax, wind, humidity);
+  const wind = document.createElement('tr');
+  wind.innerHTML = `<td>Wind speed:</td><td>${data.currentWeather.windSpeed}</td>`;
+
+  const humidity = document.createElement('tr');
+  humidity.innerHTML = `<td>Humidity:</td><td>${data.currentWeather.humidity}</td>`;
+
+  moreInfoTableBody.append(tempMin, tempMax, wind, humidity);
+  moreInfoTable.append(moreInfoTableBody);
+
+  moreInfoContainer.append(moreInfoTable);
 
   todayContainer.append(mainInfoContainer, moreInfoContainer);
 }
