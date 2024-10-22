@@ -39,7 +39,7 @@ body {
   height: auto;
 
   margin: 1rem;
-  padding: 2rem 1rem;
+  padding: 1rem 1rem;
   
   border-radius: var(--border-radius-big);
 }
@@ -95,6 +95,10 @@ input[type=text]{
 .weather-today-container {
   display: flex;
   flex-direction: column;
+
+  background-color: var(--grey-100);
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
 /* Part with name, address, date */
@@ -110,6 +114,7 @@ input[type=text]{
 
 .city {
   font-size: 2rem;
+  overflow-wrap: break-word;
 }
 
 .main-info {
@@ -123,15 +128,29 @@ input[type=text]{
 
 .icon-container > img {
   height: 4rem;
+  width: 4rem;
+}
+
+.temperature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 .temperature > h2 {
   font-size: 3rem;
   margin: 0;
   font-weight: 500;
+  min-width: 8rem;
+   text-align: end;
 }
 
 table td:nth-child(2) { 
   padding-left: 2rem;
   text-align: end; 
+}
+
+.icon-address-container {
+  display: flex;
+  gap: 1rem;
 }

@@ -69,9 +69,14 @@ function renderWeatherData(data) {
   // Find container
   const container = document.getElementById('results');
 
+  container.innerHTML = '';
+
   const todayContainer = document.createElement('div');
   todayContainer.classList.add('weather-today-container');
   container.append(todayContainer);
+
+  const iconAddressContainer = document.createElement('div');
+  iconAddressContainer.classList.add('icon-address-container');
 
   const mainInfoContainer = document.createElement('div');
   mainInfoContainer.classList.add('main-info');
@@ -111,9 +116,10 @@ function renderWeatherData(data) {
   icon.src = require(`./img/${data.currentWeather.icon}.svg`);
   tempIconContainer.append(icon);
 
-  tempContainer.append(tempInfoContainer, tempIconContainer);
+  tempContainer.append(tempIconContainer, tempInfoContainer);
 
-  mainInfoContainer.append(addressContainer, tempContainer);
+  iconAddressContainer.append(tempIconContainer, addressContainer);
+  mainInfoContainer.append(iconAddressContainer, tempInfoContainer);
 
   // More info
   const moreInfoContainer = document.createElement('div');
