@@ -30,6 +30,9 @@ async function getLocationWeatherData(location) {
 // Processes raw weather data and outputs info to be used in the app
 function processWeatherData(data) {
   let processedData = {};
+  
+  console.log(data);
+  
 
   // Location info
   processedData.city = data.address;
@@ -77,12 +80,11 @@ function processDayFromWeatherData(weatherData, forecastDay) {
   let result = {};
   
   result.date = new Date(weatherData.days[forecastDay].datetime);
-  result.description = weatherData.days[forecastDay].description;
-  result.temperature = weatherData.days[forecastDay].temp;
+  result.icon = weatherData.days[forecastDay].icon;
   result.temperatureMax = weatherData.days[forecastDay].tempmax;
   result.temperatureMin = weatherData.days[forecastDay].tempmin;
   result.windSpeed = weatherData.days[forecastDay].windspeed;
-  result.humidity = weatherData.days[forecastDay].humidity;
+  result.precipitation = weatherData.days[forecastDay].precipprob;
 
   return result;
 }
@@ -90,9 +92,28 @@ function processDayFromWeatherData(weatherData, forecastDay) {
 // Display results on page
 function renderWeatherData(data) {
 
+  // Today's forecast
+  renderTodayForecast(data);
+
+  // Forecast of the next 7 days.
+  const container = document.createElement('div');
+  container.classList.add('forecast-section');
+
+  const results = document.getElementById('results');
+  results.append(container);
+
+  for (let i = 0; i < data.forecast.length; i++) {
+    container.append(generateForecastMarkup(data.forecast[i]));
+  }
+}
+
+// Today's forecast
+function renderTodayForecast(data) {
   // Remove default content
   const defaultContent = document.getElementById('default-content');
-  defaultContent.remove();
+  if (defaultContent) {
+    defaultContent.remove();
+  }
 
   // Create container
   const container = document.getElementById('content');
@@ -273,7 +294,10 @@ function handleFormSubmit(event) {
   getLocationWeatherData(locationInput) // Get weather data
   .then((data) => { // Once ready, move on to processing the data
     if (data) {
+      // Process raw data into a usable object
       const processedData = processWeatherData(data);
+
+      // Render results
       renderWeatherData(processedData);
 
       // Reset button loading spinner
@@ -284,7 +308,8 @@ function handleFormSubmit(event) {
     // Reset button loading spinner
     setButtonSpinner(false);
 
-    alert('Error fetching weather data:', error);
+    console.log(error);
+    alert('Error');
   });
 }
 
@@ -294,6 +319,10 @@ function renderDefaultContent() {
   // Get container
   const content = document.getElementById('content');
 
+  if (!content) {
+    console.log("Content not found, returning.");
+    return null;
+  }
   // Clear existing content
   content.innerHTML = '';
   
@@ -311,4 +340,52 @@ function renderDefaultContent() {
 
   defaultContainer.append(defaultImage, defaultText);
   content.append(defaultContainer);
+}
+
+// Renders forecast row for one day
+function generateForecastMarkup(forecastData) {
+
+  let result = document.createElement('div');
+  result.classList.add('forecast-container');
+
+  // Date
+  const date = document.createElement('p');
+  date.innerText = forecastData.date.toLocaleDateString('en-US', { weekday:'long', month:'short', day:'numeric' });
+  date.classList.add('forecast-date');
+
+  // Icon
+  const icon = document.createElement('img');
+  icon.src = require(`./img/${forecastData.icon}.svg`);
+  icon.classList.add('forecast-icon');
+  
+  // Temperature max/min
+  const tempContainer = document.createElement('p');
+  
+  const tempMax = document.createElement('span');
+  tempMax.innerText = forecastData.temperatureMax;
+  tempMax.classList.add('forecast-tempMax');
+  
+  const slash = document.createElement('span');
+  slash.innerText = ' / ';
+
+  const tempMin = document.createElement('span');
+  tempMin.innerText = forecastData.temperatureMin;
+  tempMin.classList.add('forecast-tempMin');
+  
+  tempContainer.append(tempMax, slash, tempMin);
+
+  // Precipitation
+  const precipitation = document.createElement('p');
+  precipitation.innerText = `${forecastData.precipitation} %`;
+  precipitation.classList.add('forecast-precipitation');
+
+  // Wind speed
+  const wind = document.createElement('p');
+  wind.innerText = `${forecastData.windSpeed} km/h`;
+  wind.classList.add('forecast-wind');
+
+  result.append(date, icon, tempContainer, precipitation, wind);
+
+  return result;
+
 }
