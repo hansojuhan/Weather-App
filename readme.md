@@ -20,14 +20,14 @@
 
 4) [x] Style the page (both desktop and mobile).
 
-5) [ ] There should be a dropdown if there are multiple location names. Click the expected one.
-
-6) [ ] Add a loader to indicate loading.
+5) [x] Add a loader to indicate loading.
 
 - [x] Add default content for when the search is not done yet.
 
-- [ ] Add a button loader until search is done.
+- [x] Add a button loader until search is done.
 
-7) [ ] Style background based on the weather.
+6) [ ] Add a forecast for the following days.
 
-- [ ] Add a Celsius/Fahrenheit switch.
+7) [ ] Add a Celsius/Fahrenheit switch.
+
+6) [ ] Style background based on the weather.

@@ -287,7 +287,7 @@ function handleFormSubmit(event) {
 function renderDefaultContent() {
 
   // Get container
-  const content = document.getElementById('results');
+  const content = document.getElementById('content');
   
   // Clear existing content
   content.innerHTML = '';
