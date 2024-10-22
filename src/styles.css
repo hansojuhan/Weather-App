@@ -9,10 +9,114 @@
   /* Colors */
   --primary: lightblue;
   --secondary: #9022f1; 
-  --light: #ffffff;
-  --medium: #fefefe;
-  --dark: #f2f2f2;
-  --very-dark: #7a7a7a;
+
+  --grey-100: #fbfbfb;
+  --grey-200: #eeeeee;
+  --grey-300: #e0e0e0;
+  --grey-400: #c9c9c9;
   
-  --border-radius: 0.25rem;
+  --border-radius-small: 0.25rem;
+  --border-radius-big: 1rem;
+}
+
+/* Move the main content to the center */
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: auto;
+  width: auto;
+
+  padding: 3rem;
+}
+
+#content {
+  background-color: var(--grey-200);
+
+  width: 100%;
+  height: auto;
+
+  margin: 1rem;
+  padding: 2rem 1rem;
+  
+  border-radius: var(--border-radius-big);
+}
+
+.title {
+  align-self: start;
+  font-size: 2rem;
+}
+
+/* Form */
+#get-weather-data-form {
+  display: flex;
+  justify-content: space-between;
+  /* align-items: center; */
+
+  background-color: var(--grey-200);
+
+  width: 100%;
+  margin: 1rem;
+  padding: 2rem 1rem;
+  
+  border-radius: var(--border-radius-big);
+
+  gap: 1rem;
+}
+
+#get-weather-data-form .form-input {
+  display: flex;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+input[type=text]{
+  height: 2rem;
+  padding: 0 0.5rem;
+
+  border-radius: var(--border-radius);
+ }
+
+ label {
+  font-size: small;
+  color: var(--dark);
+  margin-bottom: 0.125rem;
+ }
+
+/* Results */
+#results {
+  height: 24rem;
+  width: 50%;
+}
+
+.weather-today-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Part with name, address, date */
+.address-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.address-container > p {
+  margin: 0;
+}
+
+.city {
+  font-size: 2rem;
+}
+
+.main-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.temp-container {
+  display: flex;
 }

@@ -6,21 +6,52 @@
   <title>My New App</title>
 </head>
 <body>
+ 
+  <h1 class="title">Weather App</h1>
+
+  <!-- Form to insert location and get weather data -->
+  <form id="get-weather-data-form">
+
+    <div class="form-input">
+      <label for="location-input">Enter location</label>
+      <input type="text" name="location-input" id="location-input" placeholder="Tallinn, Estonia">
+    </div>
+
+    <button id="weather-data-form-submit" type="button">Search</button>
+
+  </form>
+
   <!-- Content -->
   <div id="content">
 
-    <!-- Form to insert location and get weather data -->
-    <form id="get-weather-data-form">
-
-      <label for="location-input">Enter location:</label>
-      <input type="text" name="location-input" id="location-input">
-
-      <button id="weather-data-form-submit" type="button">Search</button>
-
-    </form>
 
     <div id="results">
+      <!-- <div class="weather-today-container">
+        <div class="main-info">
+          <div class="address-container">
+            <p class="city">Tallinn</p>
+            <p>Tallinn, Eesti</p>
+            <p>2024-10-22</p>
+          </div>
+          <div class="temp-container">
+            <div class="temperature">
+              <p>10.9</p>
+              <p>Sunny</p>
+            </div>
+            <div class="icon-container">
+              Icon
+            </div>
+          </div>
+        </div>
 
+        <div class="more-info">
+          <p>9.2</p>
+          <p>12</p>
+          <p>27.1</p>
+          <p>85.4</p>
+          <p>Partly cloudy throughout the day with late afternoon rain.</p>
+        </div>
+      </div> -->
     </div>
 
   </div>

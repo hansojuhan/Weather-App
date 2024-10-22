@@ -25,3 +25,5 @@
 6) [ ] Add a loader to indicate loading.
 
 7) [ ] Style background based on the weather.
+
+- [ ] Add a Celsius/Fahrenheit switch.

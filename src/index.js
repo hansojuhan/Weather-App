@@ -31,7 +31,7 @@ function processWeatherData(data) {
   processedData.currentWeather = {};
   processedData.currentWeather.currentDate = data.days[0].datetime;
   processedData.currentWeather.icon = data.days[0].icon;
-  processedData.currentWeather.description = data.days[0].description;
+  processedData.currentWeather.description = data.days[0].conditions;
   processedData.currentWeather.temperature = data.days[0].temp;
   processedData.currentWeather.temperatureMax = data.days[0].tempmax;
   processedData.currentWeather.temperatureMin = data.days[0].tempmin;
@@ -70,37 +70,73 @@ function renderWeatherData(data) {
   const container = document.getElementById('results');
 
   const todayContainer = document.createElement('div');
-  todayContainer.id = 'weather-today-container';
+  todayContainer.classList.add('weather-today-container');
   container.append(todayContainer);
+
+  const mainInfoContainer = document.createElement('div');
+  mainInfoContainer.classList.add('main-info');
+
+  const addressContainer = document.createElement('div');
+  addressContainer.classList.add('address-container');
 
   // Main location info
   const city = document.createElement('p');
   city.innerText = data.city;
+  city.classList.add('city');
   const address = document.createElement('p');
   address.innerText = data.address;
   const date = document.createElement('p');
   date.innerText = data.currentWeather.currentDate;
 
+  addressContainer.append(city, address, date);
+
   // Today's weather
+  const tempContainer = document.createElement('div');
+  tempContainer.classList.add('temp-container');
+
+  const tempInfoContainer = document.createElement('div');
+  tempInfoContainer.classList.add('temperature');
+
   const temperature = document.createElement('p');
   temperature.innerText = data.currentWeather.temperature;
-
-  const tempMin = document.createElement('p');
-  tempMin.innerText = data.currentWeather.temperatureMin;
-
-  const tempMax = document.createElement('p');
-  tempMax.innerText = data.currentWeather.temperatureMax;
 
   const description = document.createElement('p');
   description.innerText = data.currentWeather.description;
 
+  tempInfoContainer.append(temperature, description);
+
+  const tempIconContainer = document.createElement('div');
+  tempIconContainer.classList.add('icon-container');
+
+  // Icon
+  const iconPlaceholder = document.createElement('p');
+  iconPlaceholder.innerText = "Icon";
+
+  tempIconContainer.append(iconPlaceholder);
+
+  tempContainer.append(tempInfoContainer, tempIconContainer);
+
+  mainInfoContainer.append(addressContainer, tempContainer);
+
+  // More info
+  const moreInfoContainer = document.createElement('div');
+  moreInfoContainer.classList.add('more-info');
+
+  const tempMin = document.createElement('p');
+  tempMin.innerText = `Min temp:\t\t${data.currentWeather.temperatureMin}`;
+
+  const tempMax = document.createElement('p');
+  tempMax.innerText = `Max temp:\t${data.currentWeather.temperatureMax}`;
+
   const wind = document.createElement('p');
-  wind.innerText = data.currentWeather.windSpeed;
+  wind.innerText = `Wind speed:\t${data.currentWeather.windSpeed}`;
 
   const humidity = document.createElement('p');
-  humidity.innerText = data.currentWeather.humidity;
+  humidity.innerText = `Humidity:\t${data.currentWeather.humidity}`;
 
-  todayContainer.append(city, address, date, temperature, tempMin, tempMax, description, wind, humidity);
+  moreInfoContainer.append(tempMin, tempMax, wind, humidity);
+
+  todayContainer.append(mainInfoContainer, moreInfoContainer);
 }
 
 // On page load
