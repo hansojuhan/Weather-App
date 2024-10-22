@@ -7,13 +7,13 @@
   font-family: "Inter";
 
   /* Colors */
-  --primary: lightblue;
+  --primary: rgb(1, 107, 199);
   --secondary: #9022f1; 
 
   --grey-100: #fbfbfb;
   --grey-200: #eeeeee;
   --grey-300: #e0e0e0;
-  --grey-400: #c9c9c9;
+  --grey-400: #a8a8a8;
   
   --border-radius-small: 0.25rem;
   --border-radius-big: 1rem;
@@ -32,6 +32,44 @@ body {
   padding: 3rem;
 }
 
+/* Title section */
+#title-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  margin-bottom: 4rem;
+}
+
+#title-section > p {
+  color: var(--grey-400)
+}
+
+#subtitle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  height: 1rem;
+  color: var(--grey-400);
+  stroke: grey;
+
+  text-decoration: none;
+
+  /* Add a cool effect */
+  transition: filter 1s ease;
+}
+
+/* On hover, change color for the  */
+#subtitle:hover {
+  filter: invert(50%) sepia(100%) saturate(5000%) hue-rotate(180deg) brightness(100%) contrast(100%);
+}
+
+#subtitle > img {
+  height: 1.5rem;
+}
+
 #content {
   background-color: var(--grey-200);
 
@@ -39,7 +77,7 @@ body {
   height: auto;
 
   margin: 1rem;
-  padding: 1rem 1rem;
+  padding: 1rem 0rem;
   
   border-radius: var(--border-radius-big);
 }
@@ -47,6 +85,7 @@ body {
 .title {
   align-self: start;
   font-size: 2rem;
+  margin-bottom: 1rem;
 }
 
 /* Form */
@@ -55,11 +94,12 @@ body {
   justify-content: space-between;
   /* align-items: center; */
 
-  background-color: var(--grey-200);
+  background-color: white;
 
   width: 100%;
+  height: 4rem;
   margin: 1rem;
-  padding: 2rem 1rem;
+  /* padding: 2rem 1rem; */
   
   border-radius: var(--border-radius-big);
 
@@ -69,8 +109,10 @@ body {
 #get-weather-data-form .form-input {
   display: flex;
   flex-direction: column;
+  justify-content: center;
 
   width: 100%;
+  height: 100%;
 }
 
 input[type=text]{
@@ -88,7 +130,7 @@ input[type=text]{
 
 /* Results */
 #results {
-  height: 24rem;
+  height: auto;
   width: 50%;
 }
 
@@ -99,6 +141,7 @@ input[type=text]{
   background-color: var(--grey-100);
   border-radius: 1rem;
   padding: 1rem;
+  margin: 0 1rem;
 }
 
 /* Part with name, address, date */
@@ -153,4 +196,154 @@ table td:nth-child(2) {
 .icon-address-container {
   display: flex;
   gap: 1rem;
+}
+
+/* Form input */
+/* div#form{
+  position: absolute;
+  width:360px;
+  height:320px;
+  height:auto;
+  background-color: #fff;
+  margin:auto;
+  border-radius: 5px;
+  padding:20px;
+  left:50%;
+  top:50%;
+  margin-left:-180px;
+  margin-top:-200px;
+} */
+
+div.form-input {
+  position: relative; 
+  display: block; 
+  margin-bottom: 20px;
+}
+
+input {
+  transition: all .2s ease;
+}
+
+input.form-style {
+  display: block;
+  width: 90%;
+  height: 100%;
+  padding: 0.25rem 1rem;
+  
+  /* Border */
+  border:1px solid var(--grey-400);
+
+  -moz-border-radius: var(--border-radius-big);
+  -webkit-border-radius: var(--border-radius-big);
+  border-radius: var(--border-radius-big);
+  
+  /* ? */
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #fff;
+
+  /* Font */
+  font-size: 1rem;
+  letter-spacing: 0.8px;
+  color: var(--grey-400);
+}
+
+/* On focus, apply border and color */
+div.form-input .form-style:focus {
+  outline: none; 
+  border:1px solid var(--primary); 
+  color: var(--primary); 
+}
+
+/* Form label position */
+div.form-input label.form-label {
+  /* Initial position where the placeholder text is */
+  position: absolute;
+  left: 1rem;
+  top:1.25rem;
+
+  transition: all .4s ease;
+
+  /* Font */
+  font-size: 1rem;
+  letter-spacing: 0.8px;
+  color: var(--grey-400);
+}
+
+/* When form moves to the top */
+.form-top {
+  /* New position */
+  top: -0.5rem !important; 
+  left: 1rem; 
+
+  background-color: white; 
+  padding: 0 0.5rem; 
+  border-radius: var(--border-radius-small);
+  
+  font-size: 0.75rem !important;
+}
+
+/* Apply highlight color to label on focus */
+.form-top-color {
+  color:var(--primary) !important;
+}
+
+/* Button styles */
+#weather-data-form-submit.search{
+  width: 8rem;
+  height: 100%;
+  -moz-border-radius: 19px;
+  -webkit-border-radius: 19px;
+  border-radius: 19px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  background-color: #55b1df;
+  border:1px solid #55b1df;
+  border:none;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid #55b1df;
+}
+
+#weather-data-form-submit:hover {
+  background-color: white;
+  color: var(--primary);
+  cursor:pointer;
+  border: 1px solid var(--primary);
+}
+
+#weather-data-form-submit:focus {
+  outline: none;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .main-info {
+    flex-direction: column;
+  }
+
+  .icon-address-container {
+    flex-direction: column;
+  } 
+}
+
+
+@media (max-width: 768px) {
+  body {
+    margin: 0;
+    padding: 1rem;
+  }
+
+}
+
+
+@media (max-width: 1040px) {
+  #results {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+  }
 }

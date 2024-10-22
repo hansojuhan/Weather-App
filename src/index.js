@@ -1,4 +1,5 @@
 import "./styles.css";
+import githubIconSvg from './img/github-96.svg';
 
 // Gets weather data for a location
 async function getLocationWeatherData(location) {
@@ -166,21 +167,88 @@ function formatDate(date) {
 // On page load
 window.onload = function() {
   const weatherFromButton = document.getElementById('weather-data-form-submit');
-  weatherFromButton.addEventListener('click', () => {
+  
+  // Listener for form submit click
+  weatherFromButton.addEventListener('click', (event) => handleFormSubmit(event));
+  
+  // Listener for enter press
+  const form = document.getElementById('get-weather-data-form');
+  form.addEventListener('keydown', (event) => {
+    if (event.key == 'Enter' ) {
+      console.log("ENTER");
+      
+      event.preventDefault();
+      handleFormSubmit(event);
+    }
+  });
 
-    // Get location input
-    const locationInput = document.getElementById('location-input').value;
+  var formInput = document.getElementById('location-input');
 
-    getLocationWeatherData(locationInput) // Get weather data
-    .then((data) => { // Once ready, move on to processing the data
-      if (data) {
-        const processedData = processWeatherData(data);
-        renderWeatherData(processedData);
+  // Add event listener for focus on each input field
+  formInput.addEventListener('focus', () => {
+      // Add 'formTop' class to the corresponding label
+      var formLabel = document.getElementById('location-input-label');
+      if (formLabel) {
+        formLabel.classList.add('form-top');
+        formLabel.classList.add('form-top-color');
       }
-    })
-    .catch((error) => {
-      alert('Error fetching weather data:', error);
     });
 
+  // Add event listener for focusout on each input field
+  formInput.addEventListener('focusout', () => {
+    var formLabel = document.getElementById('location-input-label');
+    
+    // Remove 'formTop' class if input is empty
+    if (formInput.value.length == 0) {
+      formLabel.classList.remove('form-top');
+    }
+
+    if (formLabel) {
+      formLabel.classList.remove('form-top-color');
+    }
+  });
+
+  // Add who made and a github link
+  const titleSection = document.getElementById('title-section');
+  const subtitleContainer = document.createElement('a');
+  subtitleContainer.id = 'subtitle';
+  const subtitle = document.createElement('p');
+  subtitle.innerText = 'Created by hje, Oct 2024'
+
+  const githubIcon = document.createElement('img');
+  githubIcon.src = githubIconSvg;
+
+  subtitleContainer.href = 'https://github.com/your-repo-url'; // Add the correct GitHub repo URL here
+  subtitleContainer.target = '_blank'; // Opens link in a new tab
+  subtitleContainer.rel = 'noopener noreferrer'; // Security best practices
+  
+  subtitleContainer.append(githubIcon, subtitle);
+  titleSection.append(subtitleContainer);
+}
+
+// Function that handles form submission
+function handleFormSubmit(event) {
+  // Prevent default
+  event.preventDefault();
+
+  // Validation
+  const form = document.getElementById('get-weather-data-form');
+  if (!form.checkValidity()) {
+    form.reportValidity();
+    return;
+  }
+
+  // Get location input
+  const locationInput = document.getElementById('location-input').value;
+
+  getLocationWeatherData(locationInput) // Get weather data
+  .then((data) => { // Once ready, move on to processing the data
+    if (data) {
+      const processedData = processWeatherData(data);
+      renderWeatherData(processedData);
+    }
+  })
+  .catch((error) => {
+    alert('Error fetching weather data:', error);
   });
 }

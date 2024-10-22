@@ -3,21 +3,23 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My New App</title>
+  <title>Weather App</title>
 </head>
 <body>
  
-  <h1 class="title">Weather App</h1>
+  <div id="title-section">
+    <h1 class="title">Weather App</h1>
+  </div>
 
   <!-- Form to insert location and get weather data -->
   <form id="get-weather-data-form">
 
     <div class="form-input">
-      <label for="location-input">Enter location</label>
-      <input type="text" name="location-input" id="location-input" placeholder="Tallinn, Estonia" value="tallinn">
+      <label id="location-input-label" class="form-label" for="location-input">Enter location</label>
+      <input class="form-style" type="text" name="location-input" id="location-input" required>
     </div>
 
-    <button id="weather-data-form-submit" type="button">Search</button>
+    <button class="search" id="weather-data-form-submit" type="button">Search</button>
 
   </form>
 
