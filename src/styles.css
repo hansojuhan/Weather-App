@@ -124,3 +124,14 @@ input[type=text]{
 .icon-container > img {
   height: 4rem;
 }
+
+.temperature > h2 {
+  font-size: 3rem;
+  margin: 0;
+  font-weight: 500;
+}
+
+table td:nth-child(2) { 
+  padding-left: 2rem;
+  text-align: end; 
+}

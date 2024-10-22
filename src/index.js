@@ -29,7 +29,7 @@ function processWeatherData(data) {
 
   // Current weather
   processedData.currentWeather = {};
-  processedData.currentWeather.currentDate = data.days[0].datetime;
+  processedData.currentWeather.currentDate = new Date(data.days[0].datetime);
   processedData.currentWeather.icon = data.days[0].icon;
   processedData.currentWeather.description = data.days[0].conditions;
   processedData.currentWeather.temperature = data.days[0].temp;
@@ -53,7 +53,7 @@ function processWeatherData(data) {
 function processDayFromWeatherData(weatherData, forecastDay) {
   let result = {};
   
-  result.date = weatherData.days[forecastDay].datetime;
+  result.date = new Date(weatherData.days[forecastDay].datetime);
   result.description = weatherData.days[forecastDay].description;
   result.temperature = weatherData.days[forecastDay].temp;
   result.temperatureMax = weatherData.days[forecastDay].tempmax;
@@ -81,14 +81,12 @@ function renderWeatherData(data) {
 
   // Main location info
   const city = document.createElement('p');
-  city.innerText = data.city;
+  city.innerText = data.address;
   city.classList.add('city');
-  const address = document.createElement('p');
-  address.innerText = data.address;
   const date = document.createElement('p');
-  date.innerText = data.currentWeather.currentDate;
+  date.innerText = formatDate(data.currentWeather.currentDate);
 
-  addressContainer.append(city, address, date);
+  addressContainer.append(city, date);
 
   // Today's weather
   const tempContainer = document.createElement('div');
@@ -97,12 +95,11 @@ function renderWeatherData(data) {
   const tempInfoContainer = document.createElement('div');
   tempInfoContainer.classList.add('temperature');
 
-  const temperature = document.createElement('p');
-  temperature.innerText = data.currentWeather.temperature;
+  const temperature = document.createElement('h2');
+  temperature.innerText = `${data.currentWeather.temperature} °`;
 
   const description = document.createElement('p');
-  // description.innerText = data.currentWeather.description;
-  description.innerText = data.currentWeather.icon;
+  description.innerText = `${data.currentWeather.description}.`;
 
   tempInfoContainer.append(temperature, description);
 
@@ -127,16 +124,16 @@ function renderWeatherData(data) {
 
 
   const tempMin = document.createElement('tr');
-  tempMin.innerHTML = `<td>Min temp:</td><td>${data.currentWeather.temperatureMin}</td>`;
+  tempMin.innerHTML = `<td>Min temp:</td><td>${data.currentWeather.temperatureMin} °</td>`;
 
   const tempMax = document.createElement('tr');
-  tempMax.innerHTML = `<td>Max temp:</td><td>${data.currentWeather.temperatureMax}</td>`;
+  tempMax.innerHTML = `<td>Max temp:</td><td>${data.currentWeather.temperatureMax} °</td>`;
 
   const wind = document.createElement('tr');
-  wind.innerHTML = `<td>Wind speed:</td><td>${data.currentWeather.windSpeed}</td>`;
+  wind.innerHTML = `<td>Wind speed:</td><td>${data.currentWeather.windSpeed} km/h</td>`;
 
   const humidity = document.createElement('tr');
-  humidity.innerHTML = `<td>Humidity:</td><td>${data.currentWeather.humidity}</td>`;
+  humidity.innerHTML = `<td>Humidity:</td><td>${data.currentWeather.humidity} %</td>`;
 
   moreInfoTableBody.append(tempMin, tempMax, wind, humidity);
   moreInfoTable.append(moreInfoTableBody);
@@ -144,6 +141,20 @@ function renderWeatherData(data) {
   moreInfoContainer.append(moreInfoTable);
 
   todayContainer.append(mainInfoContainer, moreInfoContainer);
+}
+
+// Helper method to capitalize a string
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+// Helper method to format the date
+function formatDate(date) {
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 }
 
 // On page load
