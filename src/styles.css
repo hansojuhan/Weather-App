@@ -188,6 +188,10 @@ input[type=text]{
    text-align: end;
 }
 
+.temperature > p {
+  text-align: end;
+}
+
 table td:nth-child(2) { 
   padding-left: 2rem;
   text-align: end; 

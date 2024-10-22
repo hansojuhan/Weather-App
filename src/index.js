@@ -213,7 +213,7 @@ window.onload = function() {
   const subtitleContainer = document.createElement('a');
   subtitleContainer.id = 'subtitle';
   const subtitle = document.createElement('p');
-  subtitle.innerText = 'Created by hje, Oct 2024'
+  subtitle.innerText = 'Created by hje, oct 2024'
 
   const githubIcon = document.createElement('img');
   githubIcon.src = githubIconSvg;
