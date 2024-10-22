@@ -26,6 +26,8 @@
 
 - [x] Add default content for when the search is not done yet.
 
+- [ ] Add a button loader until search is done.
+
 7) [ ] Style background based on the weather.
 
 - [ ] Add a Celsius/Fahrenheit switch.

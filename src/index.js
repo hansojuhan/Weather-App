@@ -9,13 +9,20 @@ async function getLocationWeatherData(location) {
   const link = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}?unitGroup=metric&include=days&key=${API_KEY}&contentType=json`;
 
   try {
+    // Set spinner
+    setButtonSpinner(true);
+
     let response = await fetch(link);
     let weatherData = await response.json();
     return weatherData;
 
   } catch (error) {
-    console.log("Failed to fetch due to error:", error);
+    // Reset spinner
+    setButtonSpinner(false);
+
+    console.log("This location does not exist!");
     alert("Failed to fetch");
+
     return null;
   }
 }
@@ -48,6 +55,21 @@ function processWeatherData(data) {
   console.log(processedData);
 
   return processedData;
+}
+
+function setButtonSpinner(setSpinner){
+  const spinnerMarkup = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';
+
+  // Get button
+  const searchButton = document.getElementById('weather-data-form-submit');
+
+  if (setSpinner) {
+    searchButton.innerText = '';
+    searchButton.innerHTML = spinnerMarkup;
+  } else {
+    searchButton.innerHTML = ''; 
+    searchButton.innerText = 'Search';
+  }
 }
 
 // Processes from the weather data information for a specific day and returns it
@@ -248,9 +270,15 @@ function handleFormSubmit(event) {
     if (data) {
       const processedData = processWeatherData(data);
       renderWeatherData(processedData);
+
+      // Reset button loading spinner
+      setButtonSpinner(false);
     }
   })
   .catch((error) => {
+    // Reset button loading spinner
+    setButtonSpinner(false);
+
     alert('Error fetching weather data:', error);
   });
 }
