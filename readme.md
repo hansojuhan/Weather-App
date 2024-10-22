@@ -18,11 +18,13 @@
 
 3) [x] Add a form, searchbox and submit button for the frontend.
 
-4) [ ] Style the page (both desktop and mobile).
+4) [x] Style the page (both desktop and mobile).
 
 5) [ ] There should be a dropdown if there are multiple location names. Click the expected one.
 
 6) [ ] Add a loader to indicate loading.
+
+- [x] Add default content for when the search is not done yet.
 
 7) [ ] Style background based on the weather.
 

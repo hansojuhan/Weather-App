@@ -351,3 +351,27 @@ div.form-input label.form-label {
     width: 100%;
   }
 }
+
+/* Default content */
+#default-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  
+  color: grey;
+  margin: 2rem 0;
+
+  user-select: none;
+}
+
+#default-content > h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  text-align: center;
+  padding: 0 1rem;
+}
+
+#default-content > img {
+  height: 4rem;
+}

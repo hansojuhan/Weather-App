@@ -224,6 +224,8 @@ window.onload = function() {
   
   subtitleContainer.append(githubIcon, subtitle);
   titleSection.append(subtitleContainer);
+
+  renderDefaultContent();
 }
 
 // Function that handles form submission
@@ -251,4 +253,27 @@ function handleFormSubmit(event) {
   .catch((error) => {
     alert('Error fetching weather data:', error);
   });
+}
+
+// Adds an image as default view in the content section
+function renderDefaultContent() {
+
+  // Get container
+  const content = document.getElementById('results');
+  
+  // Clear existing content
+  content.innerHTML = '';
+  
+  // Generate default content
+  const defaultText = document.createElement('h3');
+  defaultText.innerText = 'Search for a place to see what the weather is like'
+
+  const defaultImage = document.createElement('img');
+  defaultImage.src = require(`./img/showers-day.svg`);
+
+  const defaultContainer = document.createElement('div');
+  defaultContainer.id = 'default-content';
+
+  defaultContainer.append(defaultImage, defaultText);
+  content.append(defaultContainer);
 }
