@@ -89,14 +89,22 @@ function processDayFromWeatherData(weatherData, forecastDay) {
 
 // Display results on page
 function renderWeatherData(data) {
-  // Find container
-  const container = document.getElementById('results');
 
-  container.innerHTML = '';
+  // Remove default content
+  const defaultContent = document.getElementById('default-content');
+  defaultContent.remove();
+
+  // Create container
+  const container = document.getElementById('content');
+
+  const resultsContainer = document.createElement('div');
+  resultsContainer.id = 'results';
+  resultsContainer.innerHTML = '';
+  container.append(resultsContainer);
 
   const todayContainer = document.createElement('div');
   todayContainer.classList.add('weather-today-container');
-  container.append(todayContainer);
+  resultsContainer.append(todayContainer);
 
   const iconAddressContainer = document.createElement('div');
   iconAddressContainer.classList.add('icon-address-container');
@@ -151,7 +159,6 @@ function renderWeatherData(data) {
   const moreInfoTable = document.createElement('table');
   const moreInfoTableBody = document.createElement('tbody');
 
-
   const tempMin = document.createElement('tr');
   tempMin.innerHTML = `<td>Min temp:</td><td>${data.currentWeather.temperatureMin} °</td>`;
 
@@ -197,8 +204,6 @@ window.onload = function() {
   const form = document.getElementById('get-weather-data-form');
   form.addEventListener('keydown', (event) => {
     if (event.key == 'Enter' ) {
-      console.log("ENTER");
-      
       event.preventDefault();
       handleFormSubmit(event);
     }
@@ -288,7 +293,7 @@ function renderDefaultContent() {
 
   // Get container
   const content = document.getElementById('content');
-  
+
   // Clear existing content
   content.innerHTML = '';
   
@@ -301,6 +306,8 @@ function renderDefaultContent() {
 
   const defaultContainer = document.createElement('div');
   defaultContainer.id = 'default-content';
+
+  // content.style.width = '100%';
 
   defaultContainer.append(defaultImage, defaultText);
   content.append(defaultContainer);
