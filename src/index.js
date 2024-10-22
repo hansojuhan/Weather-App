@@ -101,7 +101,8 @@ function renderWeatherData(data) {
   temperature.innerText = data.currentWeather.temperature;
 
   const description = document.createElement('p');
-  description.innerText = data.currentWeather.description;
+  // description.innerText = data.currentWeather.description;
+  description.innerText = data.currentWeather.icon;
 
   tempInfoContainer.append(temperature, description);
 
@@ -109,10 +110,9 @@ function renderWeatherData(data) {
   tempIconContainer.classList.add('icon-container');
 
   // Icon
-  const iconPlaceholder = document.createElement('p');
-  iconPlaceholder.innerText = "Icon";
-
-  tempIconContainer.append(iconPlaceholder);
+  const icon = document.createElement('img');
+  icon.src = require(`./img/${data.currentWeather.icon}.svg`);
+  tempIconContainer.append(icon);
 
   tempContainer.append(tempInfoContainer, tempIconContainer);
 
@@ -148,9 +148,7 @@ function renderWeatherData(data) {
 
 // On page load
 window.onload = function() {
-
   const weatherFromButton = document.getElementById('weather-data-form-submit');
-
   weatherFromButton.addEventListener('click', () => {
 
     // Get location input
@@ -169,5 +167,3 @@ window.onload = function() {
 
   });
 }
-
-

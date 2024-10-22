@@ -120,3 +120,7 @@ input[type=text]{
 .temp-container {
   display: flex;
 }
+
+.icon-container > img {
+  height: 4rem;
+}
