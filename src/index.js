@@ -31,9 +31,6 @@ async function getLocationWeatherData(location) {
 function processWeatherData(data) {
   let processedData = {};
   
-  console.log(data);
-  
-
   // Location info
   processedData.city = data.address;
   processedData.address = data.resolvedAddress;
@@ -55,11 +52,10 @@ function processWeatherData(data) {
     processedData.forecast.push(processDayFromWeatherData(data, i));
   }
 
-  console.log(processedData);
-
   return processedData;
 }
 
+// Sets or resets a loading spinner in the search button
 function setButtonSpinner(setSpinner){
   const spinnerMarkup = '<div class="lds-ring"><div></div><div></div><div></div><div></div></div>';
 
@@ -89,7 +85,7 @@ function processDayFromWeatherData(weatherData, forecastDay) {
   return result;
 }
 
-// Display results on page
+// Logic for resetting and rendering weather data on screen
 function renderWeatherData(data) {
 
   // Remove default content, if present
@@ -101,7 +97,6 @@ function renderWeatherData(data) {
   // Reset the results container, if present
   let resultsContainer = document.getElementById('results');
   if (resultsContainer) { // If yes, reset it
-    // forecastSection.remove();
     resultsContainer.innerHTML = '';
   } else { // If not, create it
     resultsContainer = document.createElement('div');
@@ -110,12 +105,11 @@ function renderWeatherData(data) {
     const container = document.getElementById('content');
     container.append(resultsContainer);
   }
-  // Today's forecast
+  // Generate today's forecast
   renderTodayForecast(data);
 
   let forecastsContainer = document.querySelector('#results .forecast-section');
   if (forecastsContainer) { // If yes, reset it
-    // forecastSection.remove();
     forecastsContainer.innerHTML = '';
   } else { // If not, create it
     forecastsContainer = document.createElement('div');
@@ -125,7 +119,7 @@ function renderWeatherData(data) {
     
   // Forecast of the next 7 days
   for (let i = 0; i < data.forecast.length; i++) {
-    forecastsContainer.append(generateForecastMarkup(data.forecast[i]));
+    forecastsContainer.append(renderWeeklyForecast(data.forecast[i]));
   }
 }
 
@@ -133,11 +127,6 @@ function renderWeatherData(data) {
 function renderTodayForecast(data) {
   // Create container
   const resultsContainer = document.getElementById('results');
-
-  // const resultsContainer = document.createElement('div');
-  // resultsContainer.id = 'results';
-  // resultsContainer.innerHTML = '';
-  // container.append(resultsContainer);
 
   const todayContainer = document.createElement('div');
   todayContainer.classList.add('weather-today-container');
@@ -157,7 +146,11 @@ function renderTodayForecast(data) {
   city.innerText = data.address;
   city.classList.add('city');
   const date = document.createElement('p');
-  date.innerText = formatDate(data.currentWeather.currentDate);
+  date.innerText = data.currentWeather.currentDate.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
   addressContainer.append(city, date);
 
@@ -216,25 +209,10 @@ function renderTodayForecast(data) {
   todayContainer.append(mainInfoContainer, moreInfoContainer);
 }
 
-// Helper method to capitalize a string
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-// Helper method to format the date
-function formatDate(date) {
-  return date.toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
-
 // On page load
 window.onload = function() {
-  const weatherFromButton = document.getElementById('weather-data-form-submit');
-  
   // Listener for form submit click
+  const weatherFromButton = document.getElementById('weather-data-form-submit');
   weatherFromButton.addEventListener('click', (event) => handleFormSubmit(event));
   
   // Listener for enter press
@@ -246,9 +224,9 @@ window.onload = function() {
     }
   });
 
+  
+  // Add event listener for focus on input field
   var formInput = document.getElementById('location-input');
-
-  // Add event listener for focus on each input field
   formInput.addEventListener('focus', () => {
       // Add 'formTop' class to the corresponding label
       var formLabel = document.getElementById('location-input-label');
@@ -258,7 +236,7 @@ window.onload = function() {
       }
     });
 
-  // Add event listener for focusout on each input field
+  // Add event listener for focusout on input field
   formInput.addEventListener('focusout', () => {
     var formLabel = document.getElementById('location-input-label');
     
@@ -273,6 +251,14 @@ window.onload = function() {
   });
 
   // Add who made and a github link
+  renderSubtitle();
+
+  // Set default content
+  renderDefaultContent();
+}
+
+// Renders subtitle with a github link
+function renderSubtitle() {
   const titleSection = document.getElementById('title-section');
   const subtitleContainer = document.createElement('a');
   subtitleContainer.id = 'subtitle';
@@ -282,14 +268,12 @@ window.onload = function() {
   const githubIcon = document.createElement('img');
   githubIcon.src = githubIconSvg;
 
-  subtitleContainer.href = 'https://github.com/your-repo-url'; // Add the correct GitHub repo URL here
+  subtitleContainer.href = 'https://github.com/hansojuhan/Weather-App';
   subtitleContainer.target = '_blank'; // Opens link in a new tab
   subtitleContainer.rel = 'noopener noreferrer'; // Security best practices
   
   subtitleContainer.append(githubIcon, subtitle);
   titleSection.append(subtitleContainer);
-
-  renderDefaultContent();
 }
 
 // Function that handles form submission
@@ -352,14 +336,12 @@ function renderDefaultContent() {
   const defaultContainer = document.createElement('div');
   defaultContainer.id = 'default-content';
 
-  // content.style.width = '100%';
-
   defaultContainer.append(defaultImage, defaultText);
   content.append(defaultContainer);
 }
 
 // Renders forecast row for one day
-function generateForecastMarkup(forecastData) {
+function renderWeeklyForecast(forecastData) {
 
   let result = document.createElement('div');
   result.classList.add('forecast-container');
@@ -403,5 +385,4 @@ function generateForecastMarkup(forecastData) {
   result.append(date, icon, tempContainer, precipitation, wind);
 
   return result;
-
 }
