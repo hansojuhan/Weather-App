@@ -92,36 +92,52 @@ function processDayFromWeatherData(weatherData, forecastDay) {
 // Display results on page
 function renderWeatherData(data) {
 
-  // Today's forecast
-  renderTodayForecast(data);
-
-  // Forecast of the next 7 days.
-  const container = document.createElement('div');
-  container.classList.add('forecast-section');
-
-  const results = document.getElementById('results');
-  results.append(container);
-
-  for (let i = 0; i < data.forecast.length; i++) {
-    container.append(generateForecastMarkup(data.forecast[i]));
-  }
-}
-
-// Today's forecast
-function renderTodayForecast(data) {
-  // Remove default content
+  // Remove default content, if present
   const defaultContent = document.getElementById('default-content');
   if (defaultContent) {
     defaultContent.remove();
   }
 
-  // Create container
-  const container = document.getElementById('content');
+  // Reset the results container, if present
+  let resultsContainer = document.getElementById('results');
+  if (resultsContainer) { // If yes, reset it
+    // forecastSection.remove();
+    resultsContainer.innerHTML = '';
+  } else { // If not, create it
+    resultsContainer = document.createElement('div');
+    resultsContainer.id = 'results';
 
-  const resultsContainer = document.createElement('div');
-  resultsContainer.id = 'results';
-  resultsContainer.innerHTML = '';
-  container.append(resultsContainer);
+    const container = document.getElementById('content');
+    container.append(resultsContainer);
+  }
+  // Today's forecast
+  renderTodayForecast(data);
+
+  let forecastsContainer = document.querySelector('#results .forecast-section');
+  if (forecastsContainer) { // If yes, reset it
+    // forecastSection.remove();
+    forecastsContainer.innerHTML = '';
+  } else { // If not, create it
+    forecastsContainer = document.createElement('div');
+    forecastsContainer.classList.add('forecast-section');
+    resultsContainer.append(forecastsContainer);
+  }
+    
+  // Forecast of the next 7 days
+  for (let i = 0; i < data.forecast.length; i++) {
+    forecastsContainer.append(generateForecastMarkup(data.forecast[i]));
+  }
+}
+
+// Today's forecast
+function renderTodayForecast(data) {
+  // Create container
+  const resultsContainer = document.getElementById('results');
+
+  // const resultsContainer = document.createElement('div');
+  // resultsContainer.id = 'results';
+  // resultsContainer.innerHTML = '';
+  // container.append(resultsContainer);
 
   const todayContainer = document.createElement('div');
   todayContainer.classList.add('weather-today-container');
