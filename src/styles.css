@@ -496,3 +496,14 @@ div.form-input label.form-label {
   flex-direction: column;
   gap: 1rem;
 }
+
+/* Footer note */
+.footer-note {
+  margin-top: 2%;
+  font-size: 0.75rem;
+  color: var(--grey-400);
+}
+
+.footer-note > a {
+  color: var(--grey-400);
+}
