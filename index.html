@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+  <script defer src="main.js"></script></head>
+  <body>
+    <div id="title-section">
+      <h1 class="title">Weather App</h1>
+    </div>
+
+    <!-- Form to insert location and get weather data -->
+    <form id="get-weather-data-form">
+      <div class="form-input">
+        <label id="location-input-label" class="form-label" for="location-input"
+          >Enter location</label
+        >
+        <input
+          class="form-style"
+          type="text"
+          name="location-input"
+          id="location-input"
+          required
+        />
+      </div>
+
+      <button class="search" id="weather-data-form-submit" type="button">
+        Search
+      </button>
+    </form>
+
+    <!-- Content -->
+    <div id="content">
+      <div id="results"></div>
+    </div>
+
+    <small class="footer-note">Weather data provided by <a target = '_blank' href="https://www.visualcrossing.com/">Visual Crossing</a>.</small>
+  </body>
+</html>
